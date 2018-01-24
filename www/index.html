@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="routeApp">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <!-- BOOTSTRAP -->
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/bootstrap-grid.min.css">
+    <link rel="stylesheet" href="css/bootstrap-reboot.min.css">
+    <!-- NAŠ CSS -->
+    <link href="css/glavniStil.css" type="text/css" rel="stylesheet" />
+    <!-- FONTAWESOME ZA IKONE -->
+    <link rel="stylesheet" href="css/font-awesome.min.css">
+    <title>Omis Adventures</title>
+</head>
+<body>
+
+<div ng-view></div>
+
+<!--Donja traka -->
+<div class="container" ng-controller="linkCtrl">
+    <div class="row fixed-bottom bg-primary" id="footer">
+        <div class="home">
+            <a href="#/main" class="btn-block text-center">
+                <i class="fa fa-home" aria-hidden="true" ng-class="{ active: isActive('/')}"></i>
+            </a>
+        </div>
+        <div class="home">
+            <a href="#/obrazac" class="btn-block text-center">
+                <i class="fa fa-address-book-o" aria-hidden="true" ng-class="{ active: isActive('/obrazac')}"></i>
+            </a>
+        </div>
+        <div class="home">
+            <a href="#/info" class="btn-block text-center">
+                <i class="fa fa-info" aria-hidden="true" ng-class="{ active: isActive('/info')}"></i>
+            </a>
+        </div>
+        <div class="home">
+            <a href="#/contact-page" class="btn-block text-center">
+                <i class="fa fa-phone" aria-hidden="true" ng-class="{ active: isActive('/contact-page')}"></i>
+            </a>
+        </div>
+        <div class="home">
+            <a href="#/user" class="btn-block text-center">
+                <i class="fa fa-user" aria-hidden="true" ng-class="{ active: isActive('/user')}"></i>
+            </a>
+        </div>
+    </div>
+</div>
+<!-- ANGULAR -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.8/angular.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.8/angular-route.min.js"></script>
+<!--FIREBASE-->
+<script src="https://www.gstatic.com/firebasejs/4.8.1/firebase.js"></script>
+<script src="https://www.gstatic.com/firebasejs/4.8.1/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/4.8.1/firebase-auth.js"></script>
+<script src="https://www.gstatic.com/firebasejs/4.8.1/firebase-database.js"></script>
+<script src="https://www.gstatic.com/firebasejs/4.8.1/firebase-firestore.js"></script>
+<script src="https://www.gstatic.com/firebasejs/4.8.1/firebase-messaging.js"></script>
+<!--- PDF generator -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.5/jspdf.debug.js"></script>
+<!-- JS -->
+<script src="js/main.js"></script>
+<script src="js/angular.js"></script>
+<script src="js/jquery-3.2.1.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script src="js/bootstrap.bundle.min.js"></script>
+<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBRnGIE0uIR17n0K6V7ps3fQtbGoTDVqxU&callback=initMap">
+</script>
+<script src="js/info.js"></script>
+
+</body>
+</html>

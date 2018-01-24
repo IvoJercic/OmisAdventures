@@ -1,0 +1,84 @@
+* {
+    box-sizing: border-box;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif
+}
+
+html,
+body {
+    min-height: 100%;
+    padding-bottom: 2rem;
+}
+
+.blocks {
+    margin-bottom: 2%;
+    padding: 2%;
+    color: white;
+    height: 180px;
+}
+
+#canyoning {
+  background-image: url("../res/canyoning.jpg");
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+#rockclimbing {
+  background-image: url("../res/rock-climbing.jpg");
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+#kayaking {
+  background-image: url("../res/kayaking.jpg");
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+#hiking {
+    background-image: url("../res/hiking.jpg");
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+h2 {
+    font-size: 1.5rem !important;
+    color: white;
+}
+
+#footer {
+    padding: 0.5rem;
+}
+
+.home{
+    width:20%;
+}
+
+a:link, a:active, a:hover, a:visited {
+  text-decoration: none;
+  color: white;
+}
+
+.input-group-text {
+    color:white;
+}
+
+#mapContainer {
+    margin: 2%;
+}
+
+.container-fluid {
+    padding: 2%;
+    margin-bottom: 2%;
+}
+
+.border-alert {
+    border: 1px solid red;
+}
+
+.active {
+    color: black;
+}
