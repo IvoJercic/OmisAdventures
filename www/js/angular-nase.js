@@ -94,7 +94,7 @@ app.controller('formCtrl', ["$scope", function ($scope) {
         var gostiRef = db.ref('gosti');
 
         //Pretraga po izabranom terminu
-        gostiRef.orderByChild('Vrimeme').equalTo($scope.vrijeme).on('child_added', function (snapshot) {
+        gostiRef.orderByChild('Vrijeme').equalTo($scope.vrijeme).on('child_added', function (snapshot) {
             if (snapshot.val().Datum == datum && snapshot.val().Vrijeme == vrijeme && snapshot.val().Izlet == izlet) {
                 $scope.zauzeto = snapshot.val().brojLjudi;
             }

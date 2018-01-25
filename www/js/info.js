@@ -1,13 +1,5 @@
 var geoSirina;
 var geoDuzina;
-window.onload = function()
-{
-  document.addEventListener("deviceready",postavi,true);
-}
-function postavi()
-{
-
-}
 
 function initMap() {
         var directionsService = new google.maps.DirectionsService;
