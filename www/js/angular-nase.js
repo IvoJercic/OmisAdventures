@@ -1,4 +1,6 @@
 var app = angular.module('routeApp', ['ngRoute']);
+
+//OVO SU POSTAVKE ROUTINGA, OVISNO O URL-U PRIKAŽI TEMPLATE I POSTAVI TAJ CONTROLLER AKO GA IMA
 app.config(['$routeProvider', '$locationProvider', function ($routeProvider, $locationProvider) {
     $routeProvider
         .when('/', {
@@ -21,7 +23,8 @@ app.config(['$routeProvider', '$locationProvider', function ($routeProvider, $lo
             controller: 'formCtrl'
         })
         .when('/info', {
-            templateUrl: 'info.html'
+            templateUrl: 'info.html',
+            controller: 'infoCtrl'
         })
         .when('/contact-page', {
             templateUrl: 'contact-page.html',
@@ -39,6 +42,8 @@ app.config(['$routeProvider', '$locationProvider', function ($routeProvider, $lo
         $locationProvider.hashPrefix('');
 }]);
 
+
+//CONTROLLER ZA OBRAZAC
 app.controller('formCtrl', ["$scope", function ($scope) {
     //za prvu formu
     $scope.brLjudi = 2;
@@ -284,6 +289,7 @@ app.controller('formCtrl', ["$scope", function ($scope) {
 
 }]);
 
+//CONTROLLER ZA CONTACT PAGE, PROVEJRAVA JESU LI UNOSI ISPRAVNI I JEL OMOGUĆENO SLANJE
 app.controller('contactCtrl', ['$scope', function($scope) {
     //ZA CONTACT-PAGE
     $scope.name = '';
@@ -301,10 +307,69 @@ app.controller('contactCtrl', ['$scope', function($scope) {
     };
 }]);
 
-
+//CONTROLLER ZA LINKOVE NA NAVIGACIJI, ON RADI UVIK KAKO BI OZNAČIO NA KOJOJ SMO STRANICI
 app.controller('linkCtrl', ['$scope', '$location', function($scope, $location) {
     $scope.isActive = function (viewLocation) {
         var active = (viewLocation === $location.path());
         return active;
     };
+}]);
+
+//CONTROLLER ZA MAPU, ON SE UČITAVA KADA JE NA INFO.HTML
+app.controller('infoCtrl', ['$scope', function($scope) {
+    $scope.geoSirina = 0;
+    $scope.geoDuzina = 0;
+
+    $scope.initMap = function() {
+        var directionsService = new google.maps.DirectionsService;
+        var directionsDisplay = new google.maps.DirectionsRenderer;
+        var map = new google.maps.Map(document.getElementById('map'), {
+            zoom: 8,
+            center: { lat: 43.4460654, lng: 16.6892128 }
+        });
+        var uluru = { lat: 43.4460654, lng: 16.6892128 };
+
+        var marker = new google.maps.Marker({
+            position: uluru,
+            map: map
+        });
+        directionsDisplay.setMap(map);
+
+        document.getElementById('submit').addEventListener('click', function () {
+            var opcije = { enableHighAccuracy: false };
+            navigator.geolocation.getCurrentPosition($scope.uspjeh, $scope.neuspjeh, opcije);
+            setTimeout(function () { }, 1500);//Kako bi se dohvatila lokacja
+
+            $scope.calculateAndDisplayRoute(directionsService, directionsDisplay);
+            setTimeout(function () { }, 500);//Kako bi se dohvatila lokacja
+
+
+        });
+    }
+
+    $scope.calculateAndDisplayRoute = function(directionsService, directionsDisplay) {
+        var waypts = [];
+        directionsService.route({
+            origin: $scope.geoSirina + "," + $scope.geoDuzina,
+            destination: "43.4460654,16.6892128",
+            waypoints: waypts,
+            optimizeWaypoints: true,
+            travelMode: 'DRIVING'
+        }, function (response, status) {
+            if (status === 'OK') {
+                directionsDisplay.setDirections(response);
+
+            } else {
+                window.alert('Nije pronađena ruta ! ');
+            }
+        });
+    }
+
+    $scope.uspjeh = function(rezultat) {
+        $scope.geoSirina = rezultat.coords.latitude;
+        $scope.geoDuzina = rezultat.coords.longitude;
+    }
+    $scope.neuspjeh = function(err) {
+        alert("Doslo je do pogreske! " + err.message);
+    }
 }]);
