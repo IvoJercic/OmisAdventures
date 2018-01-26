@@ -162,7 +162,7 @@ app.controller('formCtrl', ["$scope", function ($scope) {
 
             setTimeout(function () {
                 window.location = 'index.html';
-            }, 500);
+            }, 2000);
         }
     };
 
@@ -170,6 +170,7 @@ app.controller('formCtrl', ["$scope", function ($scope) {
 
     //GENERIRANJE PDF-a
     $scope.generiranjePDFa = function () {
+        console.log('Uslo u generiranjePDF-a');
         var gostiRef = db.ref("gosti");
 
 
@@ -320,9 +321,22 @@ app.controller('infoCtrl', ['$scope', function($scope) {
     $scope.geoSirina = 0;
     $scope.geoDuzina = 0;
 
+    $scope.directionsService = 0;
+    $scope.directionsDisplay = 0;
+
+    //varijable za kontrolu prikaza gumbova za ucitatMapu, pronacRutu ...
+    $scope.prikaziNaslov = false;
+    $scope.prikaziUcitajMapu = true;
+    $scope.prikaziPronadjiRutu = false;
+
+    //varijabla koja kontrolira prikaz informacija o korisnikovoj poziciji i poruku uspjeha/neuspjeha
+    $scope.infoAboutRoute = false;
+    $scope.locationText = "";
+    $scope.error = false;
+
     $scope.initMap = function() {
-        var directionsService = new google.maps.DirectionsService;
-        var directionsDisplay = new google.maps.DirectionsRenderer;
+        $scope.directionsService = new google.maps.DirectionsService;
+        $scope.directionsDisplay = new google.maps.DirectionsRenderer;
         var map = new google.maps.Map(document.getElementById('map'), {
             zoom: 8,
             center: { lat: 43.4460654, lng: 16.6892128 }
@@ -333,19 +347,17 @@ app.controller('infoCtrl', ['$scope', function($scope) {
             position: uluru,
             map: map
         });
-        directionsDisplay.setMap(map);
+        $scope.directionsDisplay.setMap(map);
 
-        document.getElementById('submit').addEventListener('click', function () {
-            var opcije = { enableHighAccuracy: false };
-            navigator.geolocation.getCurrentPosition($scope.uspjeh, $scope.neuspjeh, opcije);
-            setTimeout(function () { }, 1500);//Kako bi se dohvatila lokacja
+        $scope.prikaziNaslov = true;
+        $scope.prikaziUcitajMapu = false;
+    };
 
-            $scope.calculateAndDisplayRoute(directionsService, directionsDisplay);
-            setTimeout(function () { }, 500);//Kako bi se dohvatila lokacja
-
-
-        });
-    }
+    $scope.pronadiUredaj = function() {
+        console.log('uslo');
+        var opcije = { enableHighAccuracy: false };
+        navigator.geolocation.getCurrentPosition($scope.uspjeh, $scope.neuspjeh, opcije);
+    };
 
     $scope.calculateAndDisplayRoute = function(directionsService, directionsDisplay) {
         var waypts = [];
@@ -360,16 +372,21 @@ app.controller('infoCtrl', ['$scope', function($scope) {
                 directionsDisplay.setDirections(response);
 
             } else {
-                window.alert('Nije pronađena ruta ! ');
+                $scope.locationText = "We're sorry we couldn't find the route";
+                $scope.error = true;
             }
         });
-    }
+    };
 
     $scope.uspjeh = function(rezultat) {
         $scope.geoSirina = rezultat.coords.latitude;
         $scope.geoDuzina = rezultat.coords.longitude;
-    }
+        $scope.infoAboutRoute = true;
+        $scope.prikaziPronadiRutu = true;
+    };
+
     $scope.neuspjeh = function(err) {
-        alert("Doslo je do pogreske! " + err.message);
-    }
+        $scope.locationText = "We're sorry we couldn't find your location";
+        $scope.error = true;
+    };
 }]);
