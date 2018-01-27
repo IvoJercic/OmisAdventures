@@ -41,7 +41,7 @@
             <span class="input-group-text bg-primary">
                 <i class="fa fa-users" aria-hidden="true"></i>
             </span>
-            <input type="number" name="brLjudi" class="form-control" min="1" ng-model="brLjudi" required/>
+            <input type="number" name="brLjudi" class="form-control" min="1" max="20" ng-model="brLjudi" required/>
         </div>
         <br>
         <label for="datum">Select the date</label>
@@ -49,7 +49,7 @@
             <span class="input-group-text bg-primary">
                 <i class="fa fa-calendar" aria-hidden="true"></i>
             </span>
-            <input type="date" class="form-control" id="datum" name="datum" ng-model="datum" required>
+            <input type="date" class="form-control" id="datum" name="datum" min="danasnjiDatum" ng-model="datum" required>
         </div>
         <br>
         <label for="vrijeme">Choose the time</label>
