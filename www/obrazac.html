@@ -23,10 +23,6 @@
     </div>
     <hr>
     <form ng-show="prikazForme" class="form-group" name="forma" novalidate>
-        <div class="alert alert-warning" ng-show="obavijest != ''">
-            <small>{{obavijest}}</small>
-        </div>
-        <hr>
         <label for="izlet">Adventure</label>
         <div class="input-group">
             <span class="input-group-text bg-primary">
@@ -78,11 +74,15 @@
         <div class="alert alert-danger" ng-show="checkInput(forma.brLjudi.$invalid, forma.mail.$invalid, datum)">
             <small>Please input valid information for all fields</small>
         </div>
-        <hr>
+        <div class="alert alert-warning" ng-show="obavijest != ''">
+            <hr>
+            <small>{{obavijest}}</small>
+            <hr>
+        </div>       
         <button ng-click="brojLjudiUTerminu(slobodno)" class="btn btn-primary" ng-disabled="checkInput(forma.brLjudi.$invalid, forma.mail.$invalid, datum)">
             <em ng-show="!pleasewait">Check</em>
             <span ng-show="pleasewait">Checking database..<i class="fa fa-spinner fa-spin" style="font-size:24px"></i></span>
-        </button>       
+        </button>
     </form>
     
 
@@ -92,11 +92,6 @@
                 Guest - {{trenutniUnos}}
             </small>
         </div>
-        <hr>
-        <div class="alert alert-success" ng-show="obavijest != ''">
-            <small>{{obavijest}}</small>
-        </div>
-        <hr>
         <label for="ime">Name and surname</label>
         <div class="input-group">
             <span class="input-group-text bg-primary">
@@ -850,7 +845,14 @@
                 </option>
             </select>
         </div>
-        <hr>
-        <button ng-click="unos()" ng-disabled="checkInput2(forma2.name.$invalid, forma2.surname.$invalid, rodendan)" class="float-right btn btn-success">Confirm</button>        
+        <br>
+        <div class="alert alert-success" ng-show="obavijest != ''">
+            <hr>
+            <small>{{obavijest}}</small>
+            <hr>
+        </div>
+        <br>
+        <button ng-click="unos()" ng-disabled="checkInput2(forma2.name.$invalid, forma2.surname.$invalid, rodendan)" class="btn btn-success">Confirm</button>   
+        <br>     
     </form>
 </div>
