@@ -44,7 +44,7 @@ app.config(['$routeProvider', '$locationProvider', function ($routeProvider, $lo
 
 
 //CONTROLLER ZA OBRAZAC
-app.controller('formCtrl', ["$scope", function ($scope) {
+app.controller('formCtrl', ["$scope", "$interval", function ($scope, $interval) {
     //za prvu formu
     $scope.brLjudi = 2;
     $scope.datum = new Date();
@@ -52,6 +52,7 @@ app.controller('formCtrl', ["$scope", function ($scope) {
     $scope.mail = '';
     $scope.vrijeme = '9:00 h';
     $scope.izlet = 'Canyoning';
+    $scope.pleasewait = false;
 
     //za drugu formu
     $scope.ime = '';
@@ -67,7 +68,7 @@ app.controller('formCtrl', ["$scope", function ($scope) {
     $scope.trenutniGosti = [];
     $scope.slobodno = 2;
     $scope.zauzeto = 0;
-    $scope.upozorenje = ''; //ovo se ispisuje u div ovisno o rezultatu upita na bazu npr pun termin
+    $scope.obavijest = ''; //ovo se ispisuje u div ovisno o rezultatu upita na bazu npr pun termin
     $scope.trenutniUnos = 1; //da znamo kojeg gosta unosimo i koliko puta prikazati formu za unos
     $scope.gost = {}; //spremamo gosta
 
@@ -87,36 +88,41 @@ app.controller('formCtrl', ["$scope", function ($scope) {
             return true;
     };
 
+    $scope.formatirajDatum = function (datum) {
+        datum = datum.getDate()+'-'+(datum.getMonth()+1)+'-'+datum.getFullYear();
+        return datum;
+    };
+
     $scope.brojLjudiUTerminu = function (slobodno) {
         db = firebase.database();
         var gostiRef = db.ref('gosti');
+        $scope.pleasewait = true;
 
         //Pretraga po izabranom terminu
         gostiRef.orderByChild('Vrijeme').equalTo($scope.vrijeme).on('child_added', function (snapshot) {
-            if (snapshot.val().Datum == $scope.datum2 && snapshot.val().Vrijeme == $scope.vrijeme && snapshot.val().Izlet == $scope.izlet) {
+            if (snapshot.val().Datum == $scope.formatirajDatum($scope.datum) && snapshot.val().Vrijeme == $scope.vrijeme && snapshot.val().Izlet == $scope.izlet) {
                 $scope.zauzeto += 1;
-                console.log('uslo');
             }
         });
 
-        if (($scope.slobodno - $scope.zauzeto - $scope.brLjudi) < 0) {
-            console.log($scope.slobodno - $scope.zauzeto - $scope.brLjudi);
-            $scope.upozorenje = 'We\'re sorry but on day: ' + $scope.datum.getDate() + '-' + $scope.datum.getMonth() + '-' + $scope.datum.getFullYear() + 'at: ' + $scope.vrijeme + 'places are full. Please choose another date!';
-        }
-        else {
-            $scope.prikazForme = false;
-            $('#forma2').show('2000');
-        }
+        setTimeout(function () { 
+            if (($scope.slobodno - $scope.zauzeto - $scope.brLjudi) < 0) {
+                $scope.obavijest = 'We\'re sorry but on day: ' + $scope.formatirajDatum($scope.datum) + ' at: ' + $scope.vrijeme + ' places are full. Please choose another date!';
+            }
+            else {
+                $('#forma2').show('2000');
+                $scope.prikazForme = false;
+            }  
+        }, 2000); 
     };
 
     $scope.unos = function () {
-        if ($scope.trenutniUnos != $scope.brLjudi) {
             $scope.gost = {
                 'Ime': $scope.ime,
                 'Prezime': $scope.prezime,
-                'Rodenje': $scope.rodendan,
+                'Rodenje': $scope.formatirajDatum($scope.rodendan),
                 'Izlet': $scope.izlet,
-                'Datum': $scope.datum,
+                'Datum': $scope.formatirajDatum($scope.datum),
                 'Vrijeme': $scope.vrijeme,
                 'Mail': $scope.mail,
                 'Drzava': $scope.drzava,
@@ -132,18 +138,19 @@ app.controller('formCtrl', ["$scope", function ($scope) {
             };
             request.open("POST", "https://adventure-omis.firebaseio.com/gosti.json", true);
             request.send(JSON.stringify($scope.gost));
-
-
-            $scope.trenutniUnos += 1;
-            $("#forma2").hide();
-            $("#forma2").show(2000);
-            $scope.ocistiInpute();
-        }
-        else {
-            setTimeout(function () {
-                window.location = 'index.html';
-            }, 2000);
-        }
+         
+            if ($scope.trenutniUnos == $scope.brLjudi) {
+                $scope.obavijest = 'You\'ve successfully registered all the adventurers. Thank you!';
+                setTimeout(function () {
+                    window.location = 'index.html';
+                }, 2000);
+            }
+            else{
+                $scope.trenutniUnos += 1;
+                $("#forma2").hide();
+                $("#forma2").show(2000);
+                $scope.ocistiInpute();
+            }       
     };
 
     $scope.ocistiInpute = function () {
