@@ -4,30 +4,28 @@
     </div>
 </div>
 <div class="container">
-    <div class="row">
+    <button ng-click="initMap()" ng-show="prikaziUcitajMapu" class="btn btn-outline-primary btn-block">Load map</button>
+    <div>
         <em ng-show="prikaziNaslov">Here is our location</em>
-        <hr>
+        <br>
     </div>
-    <div class="row">
-        <button ng-click="initMap()" ng-show="prikaziUcitajMapu" class="btn btn-outline-primary btn-block">Load map</button>
+    <div>
         <div id="map" style="width:100%; height:400px"></div>
-        <hr>
     </div>
-    <div class="row">
-        <button ng-click="pronadiUredaj()" ng-show="!prikaziUcitajMapu" class="btn btn-primary btn-block">Find my location</button>
-        <button ng-click="calculateAndDisplayRoute(directionsService, directionsDisplay)" ng-show="prikaziPronadiRutu" class="btn btn-primary btn-block">Find route</button>
-    </div>
-    <div class="row" ng-show="error">
-        <hr>
-        <div class="alert alert-warning alert-dismissible fade show" role="alert">
+    <hr>
+    <button ng-click="pronadiUredaj()" ng-show="!prikaziUcitajMapu" class="btn btn-primary btn-block">Find my location</button>
+    <button ng-click="calculateAndDisplayRoute(directionsService, directionsDisplay)" ng-show="prikaziPronadiRutu" class="btn btn-primary btn-block">Find route</button>
+    <br>
+    <div ng-show="error">
+        <div class="alert alert-warning alert-dismissible fade show" style="width:100%" role="alert">
             <strong>Message!</strong> {{locationText}}
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <button ng-click="error = !error" class="close" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
             </button>
         </div>
     </div>
-    <hr>
-    <div class="row" ng-show="infoAboutRoute">
+    <br>
+    <div ng-show="infoAboutRoute">
         <div class="card border-info w-100">
             <div class="card-header bg-info">Location information</div>
             <div class="card-body">

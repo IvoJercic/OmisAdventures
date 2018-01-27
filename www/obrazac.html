@@ -2,26 +2,6 @@
     <h2 class="text-center">GET READY</h2>
 </div>
 <div class="container">
-    <button class="btn btn-info" data-toggle="collapse" data-target="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
-        Read me!
-    </button>
-    <div class="collapse" id="collapseExample">
-        <hr>
-        <div class="card card-body bg-info">
-            <small style="color:white">
-                Please note that you have to input correct information to be able to register for adventure!
-                <br>Requirements
-                <ul>
-                    <li>Age: 10</li>
-                </ul>
-
-                <br>
-                <br>See you!
-                <i class="fa fa-smile-o" aria-hidden="true"></i>
-            </small>
-        </div>
-    </div>
-    <hr>
     <form ng-show="prikazForme" class="form-group" name="forma" novalidate>
         <label for="izlet">Adventure</label>
         <div class="input-group">
@@ -43,6 +23,7 @@
             </span>
             <input type="number" name="brLjudi" class="form-control" min="1" max="20" ng-model="brLjudi" ng-class="{'border-danger': forma.brLjudi.$invalid}" required/>
         </div>
+        <small class="form-text text-muted">Minimum 2, Maximum 20</small>
         <br>
         <label for="datum">Select the date</label>
         <div class="input-group">
@@ -75,14 +56,13 @@
             <small>Please input valid information for all fields</small>
         </div>
         <div class="alert alert-warning" ng-show="obavijest != ''">
-            <hr>
             <small>{{obavijest}}</small>
-            <hr>
         </div>       
         <button ng-click="brojLjudiUTerminu(slobodno)" class="btn btn-primary" ng-disabled="checkInput(forma.brLjudi.$invalid, forma.mail.$invalid, datum)">
             <em ng-show="!pleasewait">Check</em>
             <span ng-show="pleasewait">Checking database..<i class="fa fa-spinner fa-spin" style="font-size:24px"></i></span>
         </button>
+        <small class="form-text text-muted">Before checking, please note that adventurer have to be at least 10 years old!</small>
     </form>
     
 
@@ -847,9 +827,7 @@
         </div>
         <br>
         <div class="alert alert-success" ng-show="obavijest != ''">
-            <hr>
             <small>{{obavijest}}</small>
-            <hr>
         </div>
         <br>
         <button ng-click="unos()" ng-disabled="checkInput2(forma2.name.$invalid, forma2.surname.$invalid, rodendan)" class="btn btn-success">Confirm</button>   

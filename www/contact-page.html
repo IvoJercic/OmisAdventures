@@ -14,11 +14,10 @@
         <label>Message:</label>
         <textarea class="form-control" placeholder="Your message here..." minlength='25' id="message" ng-model="message" name="message" style="height: 200px" ng-class="{'border-danger': forma.message.$invalid && forma.message.$touched}" required></textarea>
         <small class="form-text text-muted">Minimum 25 characthers</small>
-        <hr>
         <div class="alert alert-danger" ng-show="validate(forma.name.$invalid,forma.email.$invalid)">
             <small>Please input valid information for all fields</small>
         </div>
-        <hr>
+        
         <button ng-click="clicked()" type="submit" ng-disabled="validate(forma.name.$invalid,forma.email.$invalid,forma.message.$invalid)" id="send" class="btn btn-success float-right">
             <i ng-show="pleasewait" class="fa fa-paper-plane-o" aria-hidden="true"></i>
             <i ng-show="!pleasewait" class="fa fa-spinner fa-spin" style="font-size:24px"></i>
