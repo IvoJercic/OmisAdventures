@@ -75,9 +75,7 @@
             <small>Please input valid information for all fields</small>
         </div>
         <hr>
-        <button ng-click="confirm()" class="btn btn-primary" ng-disabled="checkInput(forma.brLjudi.$invalid, forma.mail.$invalid, datum)">Check
-            <i ng-show="pleasewait" class="fa fa-spinner fa-spin" style="font-size:24px"></i>
-        </button>
+        <button ng-click="brojLjudiUTerminu(slobodno)" class="btn btn-primary" ng-disabled="checkInput(forma.brLjudi.$invalid, forma.mail.$invalid, datum)">Check        </button>
     </form>
 
 
@@ -841,7 +839,6 @@
             </select>
         </div>
         <hr>
-        <button ng-click="unos()" ng-disabled="checkInput2(forma2.name.$invalid, forma2.surname.$invalid, rodendan)" class="btn btn-success"
-            id="potvrdi">Confirm</button>
+        <button ng-click="unos()" ng-disabled="checkInput2(forma2.name.$invalid, forma2.surname.$invalid, rodendan)" class="float-right btn btn-success">Confirm</button>
     </form>
 </div>
