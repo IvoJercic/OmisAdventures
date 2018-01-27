@@ -244,11 +244,12 @@ app.controller('contactCtrl', ['$scope', function($scope) {
     //ZA CONTACT-PAGE
     $scope.name = '';
     $scope.email = '';
+    $scope.message = '';
 
     $scope.pleasewait = true;
 
-    $scope.validate = function (a, b) {
-        if (a == true || b == true)
+    $scope.validate = function (a, b, c) {
+        if (a == true || b == true || c == true)
             return true;
     };
 

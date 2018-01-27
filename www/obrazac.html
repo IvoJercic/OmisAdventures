@@ -68,7 +68,7 @@
             <span class="input-group-text bg-primary">
                 @
             </span>
-            <input  type="email" class="form-control" ng-class="{'border-danger': forma.mail.$touched}" name="mail" id="mail" ng-model="mail" required />
+            <input  type="email" class="form-control" ng-class="{'border-danger': forma.mail.$touched && forma.mail.$invalid}" name="mail" id="mail" ng-model="mail" required />
         </div>
         <hr>
         <div class="alert alert-danger" ng-show="checkInput(forma.brLjudi.$invalid, forma.mail.$invalid, datum)">
@@ -97,8 +97,8 @@
             <span class="input-group-text bg-primary">
                 <i class="fa fa-user-o" aria-hidden="true"></i>
             </span>
-            <input type="text" id="ime" name="name" ng-model="ime" class="form-control" ng-class="{'border-danger': forma2.ime.$touched}" placeholder="Your name..." required />
-            <input type="text" id="prezime" name="surname" ng-model="prezime" class="form-control" ng-class="{'border-danger': forma2.prezime.$touched}" placeholder="Your surname..." required/>
+            <input type="text" id="ime" name="name" ng-model="ime" class="form-control" ng-class="{'border-danger': forma2.name.$touched && forma2.name.$invalid}" placeholder="Your name..." required />
+            <input type="text" id="prezime" name="surname" ng-model="prezime" class="form-control" ng-class="{'border-danger': forma2.surname.$touched && forma2.surname.$invalid}" placeholder="Your surname..." required/>
         </div>
         <br>
         <label for="spol">Sex</label>
