@@ -328,14 +328,22 @@ app.controller('infoCtrl', ['$scope', function($scope) {
     };
 
     $scope.uspjeh = function(rezultat) {
-        $scope.geoSirina = rezultat.coords.latitude;
-        $scope.geoDuzina = rezultat.coords.longitude;
-        $scope.infoAboutRoute = true;
-        $scope.prikaziPronadiRutu = true;
+        $scope.$apply(function() {
+            {
+                $scope.geoSirina = rezultat.coords.latitude;
+                $scope.geoDuzina = rezultat.coords.longitude;
+                $scope.infoAboutRoute = true;
+                $scope.prikaziPronadiRutu = true;
+            }
+        });
     };
 
     $scope.neuspjeh = function(err) {
-        $scope.locationText = "We're sorry we couldn't find your location";
-        $scope.error = true;
+        $scope.$apply(function() {
+            {
+                $scope.locationText = "We're sorry we couldn't find your location";
+                $scope.error = true;
+            }  
+        });    
     };
 }]);
