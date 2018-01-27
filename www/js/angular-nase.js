@@ -97,6 +97,7 @@ app.controller('formCtrl', ["$scope", "$interval", function ($scope, $interval) 
         db = firebase.database();
         var gostiRef = db.ref('gosti');
         $scope.pleasewait = true;
+        $scope.zauzeto = 0;
 
         //Pretraga po izabranom terminu
         gostiRef.orderByChild('Vrijeme').equalTo($scope.vrijeme).on('child_added', function (snapshot) {
@@ -105,13 +106,22 @@ app.controller('formCtrl', ["$scope", "$interval", function ($scope, $interval) 
             }
         });
 
+        /*ovde se koristi $scope.$apply metoda jer se radi o setTimeout funckiji koja je čisti JS, pa
+        AngularJS ne zna o tome ništa i ako mijenjamo njegovu varijablu unutra on neće to skužit pa moramo
+        mi to pozvat sa $apply metodom*/
         setTimeout(function () { 
             if (($scope.slobodno - $scope.zauzeto - $scope.brLjudi) < 0) {
-                $scope.obavijest = 'We\'re sorry but on day: ' + $scope.formatirajDatum($scope.datum) + ' at: ' + $scope.vrijeme + ' places are full. Please choose another date!';
+                $scope.$apply(function() {
+                    $scope.obavijest = 'We\'re sorry but on day: ' + $scope.formatirajDatum($scope.datum) + ' at: ' + $scope.vrijeme + ' places are full. Please choose another date!';
+                    $scope.pleasewait = false;
+                });
             }
             else {
-                $('#forma2').show('2000');
-                $scope.prikazForme = false;
+                $scope.$apply(function() {
+                    $('#forma2').show('2000');
+                    $scope.prikazForme = false;
+                    $scope.obavijest = '';
+                });      
             }  
         }, 2000); 
     };
@@ -226,7 +236,6 @@ app.controller('infoCtrl', ['$scope', function($scope) {
     };
 
     $scope.pronadiUredaj = function() {
-        console.log('uslo');
         var opcije = { enableHighAccuracy: false };
         navigator.geolocation.getCurrentPosition($scope.uspjeh, $scope.neuspjeh, opcije);
     };
