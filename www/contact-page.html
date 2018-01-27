@@ -8,9 +8,9 @@
     <form name="forma" class="form-group clearfix" method="post" action="https://adventuresomis.000webhostapp.com/php/form-email.php"
         novalidate>
         <label>Name:</label>
-        <input type="text" class="form-control" ng-model="name" id="name" name="name" required/>
+        <input type="text" class="form-control" ng-model="name" id="name" name="name" ng-class="{'border-danger': forma.name.$touched}" required/>
         <label>Email:</label>
-        <input type="email" class="form-control" ng-model="email" id="ko_salje" id="email" name="email" required/>
+        <input type="email" class="form-control" ng-model="email" id="ko_salje" id="email" name="email" ng-class="{'border-danger': forma.email.$invalid && forma.email.$touched}" required/>
         <label>Message:</label>
         <textarea class="form-control" placeholder="Your message here..." id="message" name="message" style="height: 200px" required></textarea>
         <hr>

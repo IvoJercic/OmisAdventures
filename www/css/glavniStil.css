@@ -75,10 +75,6 @@ a:link, a:active, a:hover, a:visited {
     margin-bottom: 2%;
 }
 
-.border-alert {
-    border: 1px solid red;
-}
-
 .active {
     color: black;
 }

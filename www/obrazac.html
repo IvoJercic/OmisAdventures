@@ -41,7 +41,7 @@
             <span class="input-group-text bg-primary">
                 <i class="fa fa-users" aria-hidden="true"></i>
             </span>
-            <input type="number" name="brLjudi" class="form-control" min="1" max="20" ng-model="brLjudi" required/>
+            <input type="number" name="brLjudi" class="form-control" min="1" max="20" ng-model="brLjudi" ng-class="{'border-danger': forma.brLjudi.$invalid}" required/>
         </div>
         <br>
         <label for="datum">Select the date</label>
@@ -49,7 +49,7 @@
             <span class="input-group-text bg-primary">
                 <i class="fa fa-calendar" aria-hidden="true"></i>
             </span>
-            <input type="date" class="form-control" id="datum" name="datum" min="danasnjiDatum" ng-model="datum" required>
+            <input type="date" class="form-control" ng-class="{'border-danger': checkInput(false, false, datum)}" id="datum" name="datum" min="danasnjiDatum" ng-model="datum" required>
         </div>
         <br>
         <label for="vrijeme">Choose the time</label>
@@ -68,7 +68,7 @@
             <span class="input-group-text bg-primary">
                 @
             </span>
-            <input type="email" class="form-control" name="mail" id="mail" ng-model="mail" required />
+            <input  type="email" class="form-control" ng-class="{'border-danger': forma.mail.$touched}" name="mail" id="mail" ng-model="mail" required />
         </div>
         <hr>
         <div class="alert alert-danger" ng-show="checkInput(forma.brLjudi.$invalid, forma.mail.$invalid, datum)">
@@ -97,8 +97,8 @@
             <span class="input-group-text bg-primary">
                 <i class="fa fa-user-o" aria-hidden="true"></i>
             </span>
-            <input type="text" id="ime" name="name" ng-model="ime" class="form-control" placeholder="Your name..." required />
-            <input type="text" id="prezime" name="surname" ng-model="prezime" class="form-control" placeholder="Your surname..." required/>
+            <input type="text" id="ime" name="name" ng-model="ime" class="form-control" ng-class="{'border-danger': forma2.ime.$touched}" placeholder="Your name..." required />
+            <input type="text" id="prezime" name="surname" ng-model="prezime" class="form-control" ng-class="{'border-danger': forma2.prezime.$touched}" placeholder="Your surname..." required/>
         </div>
         <br>
         <label for="spol">Sex</label>
@@ -117,7 +117,7 @@
             <span class="input-group-text bg-primary">
                 <i class="fa fa-calendar" aria-hidden="true"></i>
             </span>
-            <input type="date" class="form-control" name="rodendan" ng-model="rodendan" id="rodenje" required>
+            <input type="date" class="form-control" name="rodendan" ng-class="{'border-danger': checkInput2(false, false, rodendan)}" ng-model="rodendan" id="rodenje" required>
         </div>
         <br>
         <label for="drzava">Tell us where are you from</label>

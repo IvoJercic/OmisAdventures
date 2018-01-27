@@ -86,10 +86,10 @@ app.controller('formCtrl', ["$scope", "$interval", function ($scope, $interval) 
         }
     };
 
-    $scope.checkInput2 = function (a, b) {
+    $scope.checkInput2 = function (a, b, datum) {
         if (a == true || b == true)
             return true;
-        if ($scope.rodendan.getFullYear() >= $scope.granicaGod)
+        if (datum.getFullYear() >= $scope.granicaGod)
             return true;
     };
 
