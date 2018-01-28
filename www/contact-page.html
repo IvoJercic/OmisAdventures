@@ -8,17 +8,21 @@
     <form name="forma" class="form-group clearfix" method="post" action="https://adventuresomis.000webhostapp.com/php/form-email.php"
         novalidate>
         <label>Name:</label>
-        <input type="text" class="form-control" ng-model="name" id="name" name="name" ng-class="{'border-danger': forma.name.$touched && forma.name.$invalid}" required/>
+        <input type="text" class="form-control" ng-model="name" name="name" ng-class="{'border-danger': forma.name.$touched && forma.name.$invalid}"
+            required/>
         <label>Email:</label>
-        <input type="email" class="form-control" ng-model="email" id="email" name="email" ng-class="{'border-danger': forma.email.$invalid && forma.email.$touched}" required/>
+        <input type="email" class="form-control" ng-model="email" name="email" ng-class="{'border-danger': forma.email.$invalid && forma.email.$touched}"
+            required/>
         <label>Message:</label>
-        <textarea class="form-control" placeholder="Your message here..." minlength='25' id="message" ng-model="message" name="message" style="height: 200px" ng-class="{'border-danger': forma.message.$invalid && forma.message.$touched}" required></textarea>
+        <textarea class="form-control" placeholder="Your message here..." minlength='25' ng-model="message" name="message"
+            style="height: 200px" ng-class="{'border-danger': forma.message.$invalid && forma.message.$touched}" required></textarea>
         <small class="form-text text-muted">Minimum 25 characthers</small>
         <div class="alert alert-danger" ng-show="validate(forma.name.$invalid,forma.email.$invalid)">
             <small>Please input valid information for all fields</small>
         </div>
-        
-        <button ng-click="clicked()" type="submit" ng-disabled="validate(forma.name.$invalid,forma.email.$invalid,forma.message.$invalid)" id="send" class="btn btn-success float-right">
+
+        <button ng-click="clicked()" type="submit" ng-disabled="validate(forma.name.$invalid,forma.email.$invalid,forma.message.$invalid)"
+             class="btn btn-success float-right">
             <i ng-show="pleasewait" class="fa fa-paper-plane-o" aria-hidden="true"></i>
             <i ng-show="!pleasewait" class="fa fa-spinner fa-spin" style="font-size:24px"></i>
             <small ng-show="pleasewait">Send</small>
@@ -40,39 +44,11 @@
             Croatia</p>
         <p>
             <i class="fa fa-phone-square" aria-hidden="true"></i>
-            <strong>Phone:</strong> <a href="tel:+385-98-447-135" style="color:black">+385 98 447-135</a></p>
+            <strong>Phone:</strong>
+            <a href="tel:+385-98-447-135" style="color:black">+385 98 447-135</a>
+        </p>
     </div>
 </div>
 
 
-</div>
-<!--Donja traka -->
-<div class="container">
-    <div class="row fixed-bottom bg-primary" id="footer">
-        <div class="home">
-            <a href="index.html" class="btn-block text-center">
-                <i class="fa fa-home" aria-hidden="true"></i>
-            </a>
-        </div>
-        <div class="home">
-            <a href="obrazac.html" class="btn-block text-center">
-                <i class="fa fa-address-book-o" aria-hidden="true"></i>
-            </a>
-        </div>
-        <div class="home">
-            <a href="info.html" class="btn-block text-center">
-                <i class="fa fa-info" aria-hidden="true"></i>
-            </a>
-        </div>
-        <div class="home">
-            <a href="contact-page.html" class="btn-block text-center" style="color:rgb(48, 46, 46)">
-                <i class="fa fa-phone" aria-hidden="true"></i>
-            </a>
-        </div>
-        <div class="home">
-            <a href="user.html" class="btn-block text-center">
-                <i class="fa fa-user" aria-hidden="true"></i>
-            </a>
-        </div>
-    </div>
 </div>

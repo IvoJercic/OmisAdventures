@@ -58,7 +58,7 @@ app.controller('formCtrl', ["$scope", "$interval", function ($scope, $interval) 
     $scope.ime = '';
     $scope.prezime = '';
     $scope.rodendan = new Date(1996, 0, 1);
-    $scope.granicaGod = new Date(2008, 0, 1).getFullYear();
+    $scope.granicaGod = new Date().getFullYear() - 10;
     $scope.drzava = 'Croatia';
     $scope.spol = 'M';
 
@@ -83,6 +83,9 @@ app.controller('formCtrl', ["$scope", "$interval", function ($scope, $interval) 
                     return true;
                 }
             }
+        }
+        if(c.getFullYear() < $scope.danasnjiDatum.getFullYear()){
+            return true;
         }
     };
 
@@ -123,7 +126,7 @@ app.controller('formCtrl', ["$scope", "$interval", function ($scope, $interval) 
             }
             else {
                 $scope.$apply(function() {
-                    $('#forma2').show('2000');
+                    $("#forma2").show('2000');
                     $scope.prikazForme = false;
                     $scope.obavijest = '';
                 });      
@@ -132,7 +135,7 @@ app.controller('formCtrl', ["$scope", "$interval", function ($scope, $interval) 
     };
 
     $scope.unos = function () {
-            $scope.gost = {
+        $scope.gost = {
                 'Ime': $scope.ime,
                 'Prezime': $scope.prezime,
                 'Rodenje': $scope.formatirajDatum($scope.rodendan),
@@ -166,7 +169,7 @@ app.controller('formCtrl', ["$scope", "$interval", function ($scope, $interval) 
                 $("#forma2").hide();
                 $("#forma2").show(2000);
                 $scope.ocistiInpute();
-            }       
+            }
     };
 
     $scope.ocistiInpute = function () {
@@ -178,21 +181,18 @@ app.controller('formCtrl', ["$scope", "$interval", function ($scope, $interval) 
 
     //GENERIRANJE PDF-a FUNKCIJA
     $scope.generirajPDF = function() {
-        console.log('uslo');
-        
-
         var string = '';
 
-        for(var i = 0; i < $scope.trenutniGosti.lenght; i++) {
-            var t = trenutniGosti[i];
-            var diff = Math.abs($scope.formatirajDatum(new Date()) - $scope.formatirajDatum($scope.rodendan));
+        for(var i = 0; i < $scope.trenutniGosti.length; i++) {
+            var t = $scope.trenutniGosti[i];
 
-            string += t.Ime + " " + t.Prezime + " " + t.Spol + " " + String(diff) + " old, from " + t.Drzava + "\n";
+            string += t.Ime + " " + t.Prezime + " " + t.Spol + " " + String($scope.danasnjiDatum.getFullYear() - $scope.rodendan.getFullYear()) + " years old, from " + t.Drzava + "\n";
 
         }
-
         //GENERIRANJE PDF-a
+
         var doc = new jsPDF();
+        string = $scope.zamjenaZnakova(string);
         doc.setFont('courier');
         doc.setFontType('bold');
         doc.setFontSize(40);
@@ -236,6 +236,27 @@ app.controller('formCtrl', ["$scope", "$interval", function ($scope, $interval) 
         doc.addImage(imgData, 'JPEG', 10, 0, 65, 38);
 
         doc.save('Potvrda');
+    };
+
+    $scope.zamjenaZnakova = function(rijec)
+    {
+        var rjesenje = rijec;
+        rjesenje = rjesenje.replace("Č", "C");
+        rjesenje = rjesenje.replace("č", "c");
+
+        rjesenje = rjesenje.replace("Ć", "C");
+        rjesenje = rjesenje.replace("ć", "c");
+
+        rjesenje = rjesenje.replace("Š", "S");
+        rjesenje = rjesenje.replace("š", "s");
+
+        rjesenje = rjesenje.replace("Đ", "D");
+        rjesenje = rjesenje.replace("đ", "d");
+
+        rjesenje = rjesenje.replace("Ž", "Z");
+        rjesenje = rjesenje.replace("ž", "z");
+
+        return rjesenje;
     };
 
 }]);
