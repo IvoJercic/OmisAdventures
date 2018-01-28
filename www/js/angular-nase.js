@@ -305,6 +305,7 @@ app.controller('infoCtrl', ['$scope', function($scope) {
     $scope.infoAboutRoute = false;
     $scope.locationText = "";
     $scope.error = false;
+    $scope.pricekajteZaLokaciju = false;
 
     $scope.initMap = function() {
         $scope.directionsService = new google.maps.DirectionsService;
@@ -327,6 +328,7 @@ app.controller('infoCtrl', ['$scope', function($scope) {
 
     $scope.pronadiUredaj = function() {
         var opcije = { enableHighAccuracy: false };
+        $scope.pricekajteZaLokaciju = true;
         navigator.geolocation.getCurrentPosition($scope.uspjeh, $scope.neuspjeh, opcije);
     };
 
@@ -356,6 +358,7 @@ app.controller('infoCtrl', ['$scope', function($scope) {
                 $scope.geoDuzina = rezultat.coords.longitude;
                 $scope.infoAboutRoute = true;
                 $scope.prikaziPronadiRutu = true;
+                $scope.pricekajteZaLokaciju = false;
             }
         });
     };
@@ -365,6 +368,7 @@ app.controller('infoCtrl', ['$scope', function($scope) {
             {
                 $scope.locationText = "We're sorry we couldn't find your location.";
                 $scope.error = true;
+                $scope.pricekajteZaLokaciju = false;
             }  
         });    
     };

@@ -13,7 +13,10 @@
         <div id="map" style="width:100%; height:400px"></div>
     </div>
     <hr>
-    <button ng-click="pronadiUredaj()" ng-show="!prikaziUcitajMapu" class="btn btn-primary btn-block">Find my location</button>
+    <button ng-click="pronadiUredaj()" ng-show="!prikaziUcitajMapu" class="btn btn-primary btn-block">
+        <span ng-show="!pricekajteZaLokaciju">Find my location</span>
+        <i ng-show="pricekajteZaLokaciju" class="fa fa-spinner fa-spin" style="font-size:24px"></i>
+    </button>
     <button ng-click="calculateAndDisplayRoute(directionsService, directionsDisplay)" ng-show="prikaziPronadiRutu" class="btn btn-primary btn-block">Find route</button>
     <br>
     <div ng-show="error">
