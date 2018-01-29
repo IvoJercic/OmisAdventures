@@ -21,13 +21,34 @@
 </div>
 
 <div ng-show="odobreno" class="container">
-    <h1 class="text center"><em>Hello adventurers!</em></h1>
     <p class="text-center"><em>Thank you for signing up for the adventures. Here you can download your PDF files</em></p>
     <div>
-        <button class="btn btn-success btn-block" ng-repeat="x in nizPDF" ng-click="spremiPDF(x)">{{x.Izlet}}</button>
+        <button class="btn btn-success btn-block" ng-repeat="x in nizPDF" ng-click="spremiPDF(x)">{{x.Izlet}} PDF</button>
     </div>
     <br>
-    <div class="alert alert-success" ng-show="poruka != ''">
-        <small>{{poruka}}</small>
+    <div ng-show="poruka != ''" class="alert alert-success alert-dismissible fade show" style="width:100%" role="alert">
+        <p>{{poruka}}
+        <button ng-click="poruka = ''" class="close" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <br>
+    <p><em>or you can view the listed tables for each excursion and adventurer</em></p>
+    <div ng-repeat="y in gostiNiz">
+        <div class="card border-info w-100">
+            <div class="card-header bg-info">{{y.Izlet}}</div>
+            <div class="card-body">
+                <h5 class="card-title">{{y.Datum}} at {{y.Vrijeme}}</h5>
+                <p class="card-text">
+                    <p><strong>Name: </strong>{{y.Ime}}</p>
+                    <p><strong>Surname: </strong>{{y.Prezime}}</p>
+                    <p><strong>Gender: </strong>{{y.Spol}}</p>
+                    <p><strong>Birthday: </strong>{{y.Rodenje}}</p>
+                    <p><strong>Country: </strong>{{y.Drzava}}</p>            
+                </p>
+            </div>
+        </div>
+        <br>
     </div>
 </div>
+<br>

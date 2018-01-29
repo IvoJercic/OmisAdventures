@@ -162,7 +162,7 @@ app.controller('formCtrl', ["$scope", "$interval", function ($scope, $interval) 
                 $scope.obavijest = 'You\'ve successfully registered all the adventurers. Thank you! Your PDF for registration has been created! You can download it at USER tab (login with email)';
                 $scope.generirajPDF();
                 setTimeout(function () {
-                    window.location.href = '#/user';
+                    window.location.href = '#/';
                 }, 4000);
             }
             else{
@@ -398,6 +398,8 @@ app.controller('userCtrl', ['$scope', function($scope) {
     $scope.checkingDB = false;
     //ovde spremamo PDF-ove korisnika
     $scope.nizPDF = [];
+    //niz za spremit goste
+    $scope.gostiNiz = [];
     //info o preuzimanju
     $scope.poruka = '';
 
@@ -405,6 +407,16 @@ app.controller('userCtrl', ['$scope', function($scope) {
         $scope.checkingDB = true;
         db = firebase.database();
         var pdfRef = db.ref('PDFovi');
+        var gostiRef = db.ref('gosti');
+
+        //pretraga gostiju
+        gostiRef.orderByChild('Mail').equalTo($scope.loginMail).on('child_added', function (snapshot) {
+            if (snapshot.val().Mail == $scope.loginMail) {
+                $scope.gostiNiz.push(snapshot.val());
+                console.log('uslo');
+                console.log($scope.gostiNiz);
+            }
+        });
         //Pretraga po mailovima
         pdfRef.orderByChild('Email').equalTo($scope.loginMail).on('child_added', function (snapshot) {
             if (snapshot.val().Email == $scope.loginMail) {
@@ -417,7 +429,7 @@ app.controller('userCtrl', ['$scope', function($scope) {
                 });           
             }          
         });
-        
+            
         setTimeout(function() {
             if ($scope.odobreno == false) {
                 $scope.$apply(function(){
