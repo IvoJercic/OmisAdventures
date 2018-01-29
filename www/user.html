@@ -5,10 +5,10 @@
     <div class="card card-container">
         <img id="profile-img" class="profile-img-card" src="res/logo.png" />
         <p class="profile-name-card text-center">Log in to see your excursions!</p>
-        <form class="form-signin">
+        <form class="form-signin" name="forma">
             <span class="reauth-email"></span>
-            <input type="email" class="form-control" placeholder="Email address" ng-model="loginMail" required>
-            <button ng-click="login(loginMail)" class="btn btn-primary btn-block btn-signin" type="submit">
+            <input type="email" class="form-control" placeholder="Email address" name="mail" ng-model="loginMail" required>
+            <button ng-disabled="checkingDB || validate(forma.mail.$invalid)" ng-click="login(loginMail)" class="btn btn-primary btn-block btn-signin" type="submit">
                 <span ng-show="!checkingDB">Sign in</span>
                 <i ng-show="checkingDB" class="fa fa-spinner fa-spin" style="font-size:24px"></i>
             </button>
@@ -51,4 +51,3 @@
         <br>
     </div>
 </div>
-<br>

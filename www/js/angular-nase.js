@@ -390,7 +390,7 @@ app.controller('infoCtrl', ['$scope', function($scope) {
 }]);
 
 //CONTROLLER ZA USER-a I SKIDANJE PDF-a I DOHVAĆANJE PODATAKA
-app.controller('userCtrl', ['$scope', function($scope) {
+app.controller('userCtrl', ['$scope','$timeout', function($scope,$timeout) {
 
     //provjera logiranja
     $scope.loginMail = '';
@@ -419,13 +419,11 @@ app.controller('userCtrl', ['$scope', function($scope) {
         //Pretraga po mailovima
         pdfRef.orderByChild('Email').equalTo($scope.loginMail).on('child_added', function (snapshot) {
             if (snapshot.val().Email == $scope.loginMail) {
-                console.log('uslo');
                 $scope.nizPDF.push(snapshot.val());           
-                console.log($scope.nizPDF);
-                $scope.$apply(function(){
+                $timeout(function(){
                     $scope.odobreno = true;
                     $scope.poruka = '';
-                });           
+                });
             }          
         });
             
@@ -461,5 +459,11 @@ app.controller('userCtrl', ['$scope', function($scope) {
                 }
             }
         );
+    };
+
+    $scope.validate = function(a) {
+        if(a == true) {
+            return true;
+        }  
     };
 }]);
