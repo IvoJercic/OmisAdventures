@@ -401,28 +401,6 @@ app.controller('userCtrl', ['$scope', function($scope) {
     //info o preuzimanju
     $scope.poruka = '';
 
-    /* $scope.login = function(mail) {
-        $scope.checkingDB = true;
-        var request = new XMLHttpRequest();
-        request.onreadystatechange = function () {
-            if (request.status == 200 && request.readyState == 4) {
-                console.log(request.response);
-                $scope.nizPDF.push(JSON.parse(request.response));
-                console.log($scope.nizPDF);
-                var i = 0;
-                var l = $scope.PDF.length;
-                for(i=0; l; i++) {
-                    if($scope.loginMail == $scope.nizPDF[i].Email){
-                        $scope.odobreno = true;
-                        break;
-                    }
-                }
-            }
-        };
-        request.open("GET", "https://adventure-omis.firebaseio.com/PDFovi.json", false);
-        request.send();
-    }; */
-
     $scope.login = function(mail) {
         $scope.checkingDB = true;
         db = firebase.database();
@@ -433,13 +411,19 @@ app.controller('userCtrl', ['$scope', function($scope) {
                 console.log('uslo');
                 $scope.nizPDF.push(snapshot.val());           
                 console.log($scope.nizPDF);
-                $scope.$apply(function(){$scope.odobreno = true;});           
+                $scope.$apply(function(){
+                    $scope.odobreno = true;
+                    $scope.poruka = '';
+                });           
             }          
         });
-        if ($scope.odobreno == false) {
-            $scope.poruka = "We could not find any adventurer with this email address.";
-            $scope.checkingDB = false;
-        }
+        
+        setTimeout(function() {
+            if ($scope.odobreno == false) {
+                $scope.$apply(function(){
+                    $scope.poruka = "We could not find any adventurer with this email address.";
+                    $scope.checkingDB = false;});
+        }}, 2000);
     };
 
     //METODA ZA SPREMANJE PDF-a

@@ -1,21 +1,8 @@
 {
-  "name": "com.phonegap.helloworld",
+  "name": "omisadventures",
   "version": "1.0.0",
-  "displayName": "IJKK",
-  "cordova": {
-    "platforms": [
-      "android",
-      "browser"
-    ]
-  },
-  "dependencies": {
-    "cordova-android": "~7.0.0",
-    "cordova-plugin-file": "^5.0.0",
-    "cordova-plugin-file-transfer": "^1.7.0"
-  },
-  "description": "## Usage",
+  "description": "Final project for college subject called mobile application programming",
   "main": "index.js",
-  "devDependencies": {},
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -28,5 +15,20 @@
   "bugs": {
     "url": "https://github.com/THEK7/OmisAdventures/issues"
   },
-  "homepage": "https://github.com/THEK7/OmisAdventures#readme"
+  "homepage": "https://github.com/THEK7/OmisAdventures#readme",
+  "dependencies": {
+    "cordova-android": "^7.0.0",
+    "cordova-browser": "~5.0.3",
+    "cordova-plugin-file": "^5.0.0",
+    "cordova-plugin-file-transfer": "^1.7.0"
+  },
+  "cordova": {
+    "platforms": [
+      "browser",
+      "android"
+    ],
+    "plugins": {
+      "cordova-plugin-file-transfer": {}
+    }
+  }
 }

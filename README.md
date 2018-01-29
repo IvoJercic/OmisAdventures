@@ -9,7 +9,9 @@ Here is the www folder of the project, but if you want to run it on your mobile 
 -->	PhoneGap
 https://phonegap.com/getstarted/
 
-Create new blank phonegap project and put this www folder inside of it.
+Create new blank phonegap project and put this files inside of it.
+
+Run npm install
 
 You will then need to download the phonegap to your mobile device. 
 Then on your computer within the phonegap application run the folder with the www folder in it,
