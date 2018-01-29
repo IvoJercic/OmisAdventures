@@ -413,7 +413,6 @@ app.controller('userCtrl', ['$scope', function($scope) {
         gostiRef.orderByChild('Mail').equalTo($scope.loginMail).on('child_added', function (snapshot) {
             if (snapshot.val().Mail == $scope.loginMail) {
                 $scope.gostiNiz.push(snapshot.val());
-                console.log('uslo');
                 console.log($scope.gostiNiz);
             }
         });
