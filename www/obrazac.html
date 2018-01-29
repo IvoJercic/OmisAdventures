@@ -62,8 +62,8 @@
             <small>{{obavijest}}</small>
         </div>
         <button ng-click="brojLjudiUTerminu(slobodno)" class="btn btn-primary" ng-disabled="checkInput(forma.brLjudi.$invalid, forma.mail.$invalid, datum)">
-            <em ng-show="!pleasewait">Check</em>
-            <span ng-show="pleasewait">Checking database..
+            <span ng-show="!pleasewait">Check</span>
+            <span ng-show="pleasewait"><em>Checking database..</em>
                 <i class="fa fa-spinner fa-spin" style="font-size:24px"></i>
             </span>
         </button>
@@ -836,7 +836,7 @@
             <small>{{obavijest}}</small>
         </div>
         <br>
-        <button ng-click="unos()" ng-disabled="checkInput2(forma2.name.$invalid, forma2.surname.$invalid, rodendan)" class="btn btn-success">Confirm</button>
+        <button ng-click="unos()" ng-disabled="checkInput2(forma2.name.$invalid, forma2.surname.$invalid, rodendan)" class="btn btn-success"><em>Confirm</em></button>
         <br>
     </form>
 </div>

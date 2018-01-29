@@ -24,6 +24,7 @@
         <button ng-click="clicked()" type="submit" ng-disabled="validate(forma.name.$invalid,forma.email.$invalid,forma.message.$invalid)"
              class="btn btn-success float-right">
             <i ng-show="pleasewait" class="fa fa-paper-plane-o" aria-hidden="true"></i>
+            <span ng-show="!pleasewait"><em>Sending...</em></span>
             <i ng-show="!pleasewait" class="fa fa-spinner fa-spin" style="font-size:24px"></i>
             <small ng-show="pleasewait">Send</small>
         </button>
@@ -45,7 +46,7 @@
         <p>
             <i class="fa fa-phone-square" aria-hidden="true"></i>
             <strong>Phone:</strong>
-            <a href="tel:+385-98-447-135" style="color:black">+385 98 447-135</a>
+            <a ng-href="tel:+385-98-447-135" style="color:black">+385 98 447-135</a>
         </p>
     </div>
 </div>

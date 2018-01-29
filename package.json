@@ -1,0 +1,32 @@
+{
+  "name": "com.phonegap.helloworld",
+  "version": "1.0.0",
+  "displayName": "IJKK",
+  "cordova": {
+    "platforms": [
+      "android",
+      "browser"
+    ]
+  },
+  "dependencies": {
+    "cordova-android": "~7.0.0",
+    "cordova-plugin-file": "^5.0.0",
+    "cordova-plugin-file-transfer": "^1.7.0"
+  },
+  "description": "## Usage",
+  "main": "index.js",
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/THEK7/OmisAdventures.git"
+  },
+  "author": "Ivo Jercic & Kristijan Kelic",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/THEK7/OmisAdventures/issues"
+  },
+  "homepage": "https://github.com/THEK7/OmisAdventures#readme"
+}
