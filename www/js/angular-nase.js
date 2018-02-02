@@ -432,12 +432,12 @@ app.controller('userCtrl', ['$scope','$timeout', function($scope,$timeout) {
                 $scope.$apply(function(){
                     $scope.poruka = "We could not find any adventurer with this email address.";
                     $scope.checkingDB = false;});
-        }}, 2000);
+        }}, 4000);
     };
 
     //METODA ZA SPREMANJE PDF-a
     $scope.spremiPDF = function (info) {
-        var downloadUrl = 'file:///storage/emulated/0/Download/' + info.Izlet;
+        var downloadUrl = cordova.file.externalRootDirectory + 'OmisAdventures/' + info.Izlet;
         var hostUrl = encodeURI(info.PDFuri);
 
         var fileTransfer = new FileTransfer();
@@ -446,11 +446,12 @@ app.controller('userCtrl', ['$scope','$timeout', function($scope,$timeout) {
             downloadUrl,
             function (entry) {
                 $scope.$apply(function(){
-                $scope.poruka = 'Your download has completed. Check your internal storage and Downloads folder';
+                $scope.poruka = 'Your download has completed. Check your internal storage and OmisAdventures folder';
                 });
             },
             function (error) {
-                alert(error.source);
+                alert(downloadUrl);
+                /* alert(error.source); */
             },
             false,
             {
