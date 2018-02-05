@@ -437,7 +437,7 @@ app.controller('userCtrl', ['$scope','$timeout', function($scope,$timeout) {
 
     //METODA ZA SPREMANJE PDF-a
     $scope.spremiPDF = function (info) {
-        var downloadUrl = cordova.file.externalRootDirectory + 'OmisAdventures/' + info.Izlet;
+        var downloadUrl = cordova.file.externalRootDirectory + 'OmisAdventures/' + info.Izlet + ".pdf";
         var hostUrl = encodeURI(info.PDFuri);
 
         var fileTransfer = new FileTransfer();
