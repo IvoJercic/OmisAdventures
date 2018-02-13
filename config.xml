@@ -2,11 +2,15 @@
 <widget id="com.phonegap.helloworld" version="1.0.0" xmlns="http://www.w3.org/ns/widgets" xmlns:gap="http://phonegap.com/ns/1.0">
     <name>Omis Adventures</name>
     <description>
-        A blank PhoneGap app.
+        App for registering adventures
     </description>
     <author email="support@phonegap.com" href="http://phonegap.com">
-        PhoneGap Team
+        Ivo Jercic, Kristijan Kelic
     </author>
+    <icon src="www/res/adventures.png" width="72" height="72" />
+    <icon src="www/res/adventures.png" width="48" height="48" />
+    <icon src="www/res/adventures.png" width="36" height="36" />
+    <splash src="www/res/logo.png"  width="320" height="480" />
     <content src="index.html" />
     <access origin="*" />
     <engine name="browser" spec="~5.0.3" />
