@@ -1,19 +1,14 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget id="com.phonegap.helloworld" version="1.0.0" xmlns="http://www.w3.org/ns/widgets" xmlns:gap="http://phonegap.com/ns/1.0">
-    <name>Omis Adventures</name>
+<widget id="OA" version="1.0.0" xmlns="http://www.w3.org/ns/widgets" xmlns:gap="http://phonegap.com/ns/1.0">
+    <name>AdventuresOmis</name>
     <description>
-        App for registering adventures
+        App for registering adventurers!
     </description>
     <author email="support@phonegap.com" href="http://phonegap.com">
         Ivo Jercic, Kristijan Kelic
     </author>
-    <icon src="www/res/adventures.png" width="72" height="72" />
-    <icon src="www/res/adventures.png" width="48" height="48" />
-    <icon src="www/res/adventures.png" width="36" height="36" />
-    <splash src="www/res/logo.png"  width="320" height="480" />
     <content src="index.html" />
     <access origin="*" />
-    <engine name="browser" spec="~5.0.3" />
-    <engine name="android" spec="~7.0.0" />
-    <plugin name="cordova-plugin-file-transfer" spec="^1.7.0" />
+    <icon src="www/res/adventures.png" platform="android" width="57" height="57" density="mdpi" />
+    <splash src="www/res/logo.png" platform="android" width="320" height="480" />
 </widget>

@@ -1,5 +1,4 @@
 var app = angular.module('routeApp', ['ngRoute']);
-
 //OVO SU POSTAVKE ROUTINGA, OVISNO O URL-U PRIKAŽI TEMPLATE I POSTAVI TAJ CONTROLLER AKO GA IMA
 app.config(['$routeProvider', '$locationProvider', function ($routeProvider, $locationProvider) {
     $routeProvider
@@ -38,9 +37,9 @@ app.config(['$routeProvider', '$locationProvider', function ($routeProvider, $lo
             redirectTo: '/'
         });
 
-        /*ovo je samo da se riješi problem sa URL-om, kad se klikne na link npr /obrazac
-         -> / se encodira u %2F*/
-        $locationProvider.hashPrefix('');
+    /*ovo je samo da se riješi problem sa URL-om, kad se klikne na link npr /obrazac
+     -> / se encodira u %2F*/
+    $locationProvider.hashPrefix('');
 }]);
 
 
@@ -78,14 +77,14 @@ app.controller('formCtrl', ["$scope", "$interval", function ($scope, $interval) 
         if (a == true || b == true || c == undefined)
             return true;
 
-        if (c.getFullYear() <= $scope.danasnjiDatum.getFullYear()){
-            if(c.getMonth() <= $scope.danasnjiDatum.getMonth()){
-                if(c.getDate() < $scope.danasnjiDatum.getDate()){
+        if (c.getFullYear() <= $scope.danasnjiDatum.getFullYear()) {
+            if (c.getMonth() <= $scope.danasnjiDatum.getMonth()) {
+                if (c.getDate() < $scope.danasnjiDatum.getDate()) {
                     return true;
                 }
             }
         }
-        if(c.getFullYear() < $scope.danasnjiDatum.getFullYear()){
+        if (c.getFullYear() < $scope.danasnjiDatum.getFullYear()) {
             return true;
         }
     };
@@ -98,7 +97,7 @@ app.controller('formCtrl', ["$scope", "$interval", function ($scope, $interval) 
     };
 
     $scope.formatirajDatum = function (datum) {
-        datum = datum.getDate()+'-'+(datum.getMonth()+1)+'-'+datum.getFullYear();
+        datum = datum.getDate() + '-' + (datum.getMonth() + 1) + '-' + datum.getFullYear();
         return datum;
     };
 
@@ -118,59 +117,59 @@ app.controller('formCtrl', ["$scope", "$interval", function ($scope, $interval) 
         /*ovde se koristi $scope.$apply metoda jer se radi o setTimeout funckiji koja je čisti JS, pa
         AngularJS ne zna o tome ništa i ako mijenjamo njegovu varijablu unutra on neće to skužit pa moramo
         mi to pozvat sa $apply metodom*/
-        setTimeout(function () { 
+        setTimeout(function () {
             if (($scope.slobodno - $scope.zauzeto - $scope.brLjudi) < 0) {
-                $scope.$apply(function() {
+                $scope.$apply(function () {
                     $scope.obavijest = 'We\'re sorry but on day: ' + $scope.formatirajDatum($scope.datum) + ' at: ' + $scope.vrijeme + ' places are full. Please choose another date!';
                     $scope.pleasewait = false;
                 });
             }
             else {
-                $scope.$apply(function() {
+                $scope.$apply(function () {
                     $("#forma2").show('2000');
                     $scope.prikazForme = false;
                     $scope.obavijest = '';
-                });      
-            }  
-        }, 2000); 
+                });
+            }
+        }, 2000);
     };
 
     $scope.unos = function () {
         $scope.gost = {
-                'Ime': $scope.ime,
-                'Prezime': $scope.prezime,
-                'Rodenje': $scope.formatirajDatum($scope.rodendan),
-                'Izlet': $scope.izlet,
-                'Datum': $scope.formatirajDatum($scope.datum),
-                'Vrijeme': $scope.vrijeme,
-                'Mail': $scope.mail,
-                'Drzava': $scope.drzava,
-                'Spol': $scope.spol
-            };
+            'Ime': $scope.ime,
+            'Prezime': $scope.prezime,
+            'Rodenje': $scope.formatirajDatum($scope.rodendan),
+            'Izlet': $scope.izlet,
+            'Datum': $scope.formatirajDatum($scope.datum),
+            'Vrijeme': $scope.vrijeme,
+            'Mail': $scope.mail,
+            'Drzava': $scope.drzava,
+            'Spol': $scope.spol
+        };
 
-            $scope.trenutniGosti.push($scope.gost);
-            var request = new XMLHttpRequest();
-            request.onreadystatechange = function () {
-                if (request.status == 200 && request.readyState == 4) {
-                    console.log("Podaci spremljeni");
-                }
-            };
-            request.open("POST", "https://adventure-omis.firebaseio.com/gosti.json", true);
-            request.send(JSON.stringify($scope.gost));
-         
-            if ($scope.trenutniUnos == $scope.brLjudi) {
-                $scope.obavijest = 'You\'ve successfully registered all the adventurers. Thank you! Your PDF for registration has been created! You can download it at USER tab (login with email)';
-                $scope.generirajPDF();
-                setTimeout(function () {
-                    window.location.href = '#/';
-                }, 4000);
+        $scope.trenutniGosti.push($scope.gost);
+        var request = new XMLHttpRequest();
+        request.onreadystatechange = function () {
+            if (request.status == 200 && request.readyState == 4) {
+                console.log("Podaci spremljeni");
             }
-            else{
-                $scope.trenutniUnos += 1;
-                $("#forma2").hide();
-                $("#forma2").show(2000);
-                $scope.ocistiInpute();
-            }
+        };
+        request.open("POST", "https://adventure-omis.firebaseio.com/gosti.json", true);
+        request.send(JSON.stringify($scope.gost));
+
+        if ($scope.trenutniUnos == $scope.brLjudi) {
+            $scope.obavijest = 'You\'ve successfully registered all the adventurers. Thank you! Your PDF for registration has been created! You can download it at USER tab (login with email)';
+            $scope.generirajPDF();
+            setTimeout(function () {
+                window.location.href = '#/';
+            }, 4000);
+        }
+        else {
+            $scope.trenutniUnos += 1;
+            $("#forma2").hide();
+            $("#forma2").show(2000);
+            $scope.ocistiInpute();
+        }
     };
 
     $scope.ocistiInpute = function () {
@@ -181,10 +180,10 @@ app.controller('formCtrl', ["$scope", "$interval", function ($scope, $interval) 
     };
 
     //GENERIRANJE PDF-a FUNKCIJA
-    $scope.generirajPDF = function() {
+    $scope.generirajPDF = function () {
         var string = '';
 
-        for(var i = 0; i < $scope.trenutniGosti.length; i++) {
+        for (var i = 0; i < $scope.trenutniGosti.length; i++) {
             var t = $scope.trenutniGosti[i];
 
             string += t.Ime + " " + t.Prezime + " " + t.Spol + " " + String($scope.danasnjiDatum.getFullYear() - $scope.rodendan.getFullYear()) + " years old, from " + t.Drzava + "\n";
@@ -240,7 +239,7 @@ app.controller('formCtrl', ["$scope", "$interval", function ($scope, $interval) 
 
         var PDF = {
             Izlet: $scope.izlet,
-            Email : $scope.mail,
+            Email: $scope.mail,
             PDFuri: uri
         };
 
@@ -254,8 +253,7 @@ app.controller('formCtrl', ["$scope", "$interval", function ($scope, $interval) 
         request.send(JSON.stringify(PDF));
     };
 
-    $scope.zamjenaZnakova = function(rijec)
-    {
+    $scope.zamjenaZnakova = function (rijec) {
         var rjesenje = rijec;
         rjesenje = rjesenje.replace("Č", "C");
         rjesenje = rjesenje.replace("č", "c");
@@ -277,7 +275,7 @@ app.controller('formCtrl', ["$scope", "$interval", function ($scope, $interval) 
 }]);
 
 //CONTROLLER ZA CONTACT PAGE, PROVEJRAVA JESU LI UNOSI ISPRAVNI I JEL OMOGUĆENO SLANJE
-app.controller('contactCtrl', ['$scope', function($scope) {
+app.controller('contactCtrl', ['$scope', function ($scope) {
     //ZA CONTACT-PAGE
     $scope.name = '';
     $scope.email = '';
@@ -296,7 +294,7 @@ app.controller('contactCtrl', ['$scope', function($scope) {
 }]);
 
 //CONTROLLER ZA LINKOVE NA NAVIGACIJI, ON RADI UVIK KAKO BI OZNAČIO NA KOJOJ SMO STRANICI
-app.controller('linkCtrl', ['$scope', '$location', function($scope, $location) {
+app.controller('linkCtrl', ['$scope', '$location', function ($scope, $location) {
     $scope.isActive = function (viewLocation) {
         var active = (viewLocation === $location.path());
         return active;
@@ -304,7 +302,7 @@ app.controller('linkCtrl', ['$scope', '$location', function($scope, $location) {
 }]);
 
 //CONTROLLER ZA MAPU, ON SE UČITAVA KADA JE NA INFO.HTML
-app.controller('infoCtrl', ['$scope', function($scope) {
+app.controller('infoCtrl', ['$scope', function ($scope) {
     $scope.geoSirina = 0;
     $scope.geoDuzina = 0;
 
@@ -322,7 +320,7 @@ app.controller('infoCtrl', ['$scope', function($scope) {
     $scope.error = false;
     $scope.pricekajteZaLokaciju = false;
 
-    $scope.initMap = function() {
+    $scope.initMap = function () {
         $scope.directionsService = new google.maps.DirectionsService;
         $scope.directionsDisplay = new google.maps.DirectionsRenderer;
         var map = new google.maps.Map(document.getElementById('map'), {
@@ -341,13 +339,13 @@ app.controller('infoCtrl', ['$scope', function($scope) {
         $scope.prikaziUcitajMapu = false;
     };
 
-    $scope.pronadiUredaj = function() {
+    $scope.pronadiUredaj = function () {
         var opcije = { enableHighAccuracy: false };
         $scope.pricekajteZaLokaciju = true;
         navigator.geolocation.getCurrentPosition($scope.uspjeh, $scope.neuspjeh, opcije);
     };
 
-    $scope.calculateAndDisplayRoute = function(directionsService, directionsDisplay) {
+    $scope.calculateAndDisplayRoute = function (directionsService, directionsDisplay) {
         var waypts = [];
         directionsService.route({
             origin: $scope.geoSirina + "," + $scope.geoDuzina,
@@ -366,8 +364,8 @@ app.controller('infoCtrl', ['$scope', function($scope) {
         });
     };
 
-    $scope.uspjeh = function(rezultat) {
-        $scope.$apply(function() {
+    $scope.uspjeh = function (rezultat) {
+        $scope.$apply(function () {
             {
                 $scope.geoSirina = rezultat.coords.latitude;
                 $scope.geoDuzina = rezultat.coords.longitude;
@@ -378,19 +376,19 @@ app.controller('infoCtrl', ['$scope', function($scope) {
         });
     };
 
-    $scope.neuspjeh = function(err) {
-        $scope.$apply(function() {
+    $scope.neuspjeh = function (err) {
+        $scope.$apply(function () {
             {
                 $scope.locationText = "We're sorry we couldn't find your location.";
                 $scope.error = true;
                 $scope.pricekajteZaLokaciju = false;
-            }  
-        });    
+            }
+        });
     };
 }]);
 
 //CONTROLLER ZA USER-a I SKIDANJE PDF-a I DOHVAĆANJE PODATAKA
-app.controller('userCtrl', ['$scope','$timeout', function($scope,$timeout) {
+app.controller('userCtrl', ['$scope', '$timeout', function ($scope, $timeout) {
 
     //provjera logiranja
     $scope.loginMail = '';
@@ -403,7 +401,7 @@ app.controller('userCtrl', ['$scope','$timeout', function($scope,$timeout) {
     //info o preuzimanju
     $scope.poruka = '';
 
-    $scope.login = function(mail) {
+    $scope.login = function (mail) {
         $scope.checkingDB = true;
         db = firebase.database();
         var pdfRef = db.ref('PDFovi');
@@ -413,31 +411,32 @@ app.controller('userCtrl', ['$scope','$timeout', function($scope,$timeout) {
         gostiRef.orderByChild('Mail').equalTo($scope.loginMail).on('child_added', function (snapshot) {
             if (snapshot.val().Mail == $scope.loginMail) {
                 $scope.gostiNiz.push(snapshot.val());
-                console.log($scope.gostiNiz);
             }
         });
         //Pretraga po mailovima
         pdfRef.orderByChild('Email').equalTo($scope.loginMail).on('child_added', function (snapshot) {
             if (snapshot.val().Email == $scope.loginMail) {
-                $scope.nizPDF.push(snapshot.val());           
-                $timeout(function(){
+                $scope.nizPDF.push(snapshot.val());
+                $timeout(function () {
                     $scope.odobreno = true;
                     $scope.poruka = '';
                 });
-            }          
+            }
         });
-            
-        setTimeout(function() {
+
+        setTimeout(function () {
             if ($scope.odobreno == false) {
-                $scope.$apply(function(){
+                $scope.$apply(function () {
                     $scope.poruka = "We could not find any adventurer with this email address.";
-                    $scope.checkingDB = false;});
-        }}, 4000);
+                    $scope.checkingDB = false;
+                });
+            }
+        }, 4000);
     };
 
     //METODA ZA SPREMANJE PDF-a
     $scope.spremiPDF = function (info) {
-        var downloadUrl = cordova.file.externalRootDirectory + 'OmisAdventures/' + info.Izlet + ".pdf";
+        var downloadUrl = cordova.file.externalRootDirectory + 'AdventuresOmis/' + info.Izlet + ".pdf";
         var hostUrl = encodeURI(info.PDFuri);
 
         var fileTransfer = new FileTransfer();
@@ -445,8 +444,8 @@ app.controller('userCtrl', ['$scope','$timeout', function($scope,$timeout) {
             hostUrl,
             downloadUrl,
             function (entry) {
-                $scope.$apply(function(){
-                $scope.poruka = 'Your download has completed. Check your internal storage and OmisAdventures folder';
+                $scope.$apply(function () {
+                    $scope.poruka = 'Your download has completed. Check your internal storage and AdventuresOmis folder';
                 });
             },
             function (error) {
@@ -462,9 +461,9 @@ app.controller('userCtrl', ['$scope','$timeout', function($scope,$timeout) {
         );
     };
 
-    $scope.validate = function(a) {
-        if(a == true) {
+    $scope.validate = function (a) {
+        if (a == true) {
             return true;
-        }  
+        }
     };
 }]);
